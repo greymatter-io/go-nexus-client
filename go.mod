@@ -1,4 +1,4 @@
-module github.com/datadrivers/go-nexus-client
+module github.com/greymatter-io/go-nexus-client/v2
 
 go 1.14
 
