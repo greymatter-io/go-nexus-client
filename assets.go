@@ -36,7 +36,7 @@ type Checksum struct {
 
 func (c client) Assets(repository, continuationToken string) (*AssetResponse, error) {
 
-	url := assetsAPIEndpoint+"?"+repository
+	url := assetsAPIEndpoint+"?repository="+repository
 	if continuationToken != "" {
 		url += "&continuationToken"+continuationToken
 	}
