@@ -12,18 +12,18 @@ const (
 )
 
 type AssetResponse struct {
-	Items             []Asset
+	Items             []Asset `json:"items"`
 	ContinuationToken string `json:"continuationToken"`
 }
 
 type Asset struct {
 	DownloadURL    string `json:"downloadUrl"`
-	Path           string
+	Path           string `json:"path"`
 	ID             string `json:"id"`
-	Repository     string
-	Format         string
+	Repository     string `json:"repository"`
+	Format         string `json:"format"`
 	Checksum       Checksum  `json:"checksum"`
-	ContentType    time.Time `json:"contentType"`
+	ContentType    string `json:"contentType"`
 	LastModified   time.Time `json:"lastModified"`
 	BlobCreated    time.Time `json:"blobCreated"`
 	LastDownloaded time.Time `json:"lastDownloaded"`
