@@ -44,7 +44,7 @@ func (c client) Assets(repository, continuationToken string) (*AssetResponse, er
 	if err != nil {
 		return nil, err
 	}
-	dump, _ := httputil.DumpResponse(resp, body)
+	dump, _ := httputil.DumpResponse(resp, true)
 	fmt.Println(string(dump))
 	var ar AssetResponse
 	if err := json.Unmarshal(body, &ar); err != nil {
