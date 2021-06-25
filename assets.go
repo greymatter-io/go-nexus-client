@@ -2,6 +2,8 @@ package client
 
 import (
 	"encoding/json"
+	"fmt"
+	"net/http/httputil"
 	"time"
 )
 
@@ -34,14 +36,16 @@ type Checksum struct {
 
 func (c client) Assets(repository, continuationToken string) (*AssetResponse, error) {
 
-	url :=assetsAPIEndpoint+"?"+repository
+	url := assetsAPIEndpoint+"?"+repository
 	if continuationToken != "" {
 		url += "&continuationToken"+continuationToken
 	}
-	body, _, err := c.Get(url, nil)
+	body, resp, err := c.Get(url, nil)
 	if err != nil {
 		return nil, err
 	}
+	dump, _ := httputil.DumpResponse(resp, body)
+	fmt.Println(string(dump))
 	var ar AssetResponse
 	if err := json.Unmarshal(body, &ar); err != nil {
 		return nil, err
