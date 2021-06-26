@@ -3,7 +3,6 @@ package client
 import (
 	"encoding/json"
 	"fmt"
-	"net/http/httputil"
 	"time"
 )
 
@@ -34,7 +33,7 @@ type Checksum struct {
 	SHA256 string `json:"sha256"`
 }
 
-func (c client) Assets(repository, continuationToken string) (*AssetResponse, error) {
+func (c client) AssetList(repository, continuationToken string) (*AssetResponse, error) {
 
 	url := assetsAPIEndpoint+"?repository="+repository
 	if continuationToken != "" {
@@ -42,10 +41,8 @@ func (c client) Assets(repository, continuationToken string) (*AssetResponse, er
 	}
 	body, resp, err := c.Get(url, nil)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("status code:%v %v", resp.StatusCode, err)
 	}
-	dump, _ := httputil.DumpResponse(resp, true)
-	fmt.Println(string(dump))
 	var ar AssetResponse
 	if err := json.Unmarshal(body, &ar); err != nil {
 		return nil, err
